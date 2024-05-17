@@ -1,0 +1,491 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API documentation for the online book store.",
+        "version": "1.0.0",
+        "title": "Book Store API"
+    },
+    "host": "localhost:8080",
+    "basePath": "/api/v1",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "paths": {
+        "/account": {
+            "post": {
+                "summary": "Create a new account",
+                "description": "Create a new account with the provided details",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "account",
+                        "description": "Account details",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/CreateAccountCommand"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/CreateAccountAnswer"
+                        }
+                    }
+                }
+            }
+        },
+        "/account/{id}": {
+            "get": {
+                "summary": "Get account by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Account ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/AccountDto"
+                        }
+                    }
+                }
+            }
+        },
+        "/account/{id}/orders": {
+            "get": {
+                "summary": "Search orders for an account",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Account ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "size",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "default": 10
+                        },
+                        "description": "Number of elements per page"
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "default": 0
+                        },
+                        "description": "Number of elements to skip"
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "default": "created_at DESC"
+                        },
+                        "description": "Sorting order (e.g. created_at ASC or created_at DESC)"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/OrdersPage"
+                        }
+                    }
+                }
+            }
+        },
+        "/item/{id}": {
+            "get": {
+                "summary": "Get item by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Item ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/ItemDto"
+                        }
+                    }
+                }
+            }
+        },
+        "/item": {
+            "get": {
+                "summary": "Get items",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "size",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "default": 10
+                        },
+                        "description": "Number of elements per page"
+                    },
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "default": 0
+                        },
+                        "description": "Number of elements to skip"
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "default": "created_at DESC"
+                        },
+                        "description": "Sorting order (e.g. created_at ASC or created_at DESC)"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/ItemsPage"
+                        }
+                    }
+                }
+            }
+        },
+        "/order": {
+            "post": {
+                "summary": "Create a new order",
+                "description": "Create a new order with the provided details",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "order",
+                        "description": "Order details",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/CreateOrderCommand"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/CreateOrderAnswer"
+                        }
+                    }
+                }
+            }
+        },
+        "/order/{id}": {
+            "get": {
+                "summary": "Get order by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Order ID",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation",
+                        "schema": {
+                            "$ref": "#/definitions/OrderDto"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "CreateAccountCommand": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "full_name": {
+                    "type": "string"
+                },
+                "date_of_birth": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "gender": {
+                    "$ref": "#/definitions/GenderDto"
+                }
+            }
+        },
+        "CreateAccountAnswer": {
+            "$ref": "#/definitions/AccountDto"
+        },
+        "AccountDto": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "full_name": {
+                    "type": "string"
+                },
+                "date_of_birth": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "gender": {
+                    "$ref": "#/definitions/GenderDto"
+                }
+            }
+        },
+        "GenderDto": {
+            "type": "string",
+            "enum": ["Male", "Female", "Other"]
+        },
+        "ItemDto": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "number",
+                    "format": "float"
+                }
+            }
+        },
+        "CreateOrderCommand": {
+            "type": "object",
+            "properties": {
+                "account_id": {
+                    "type": "string"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/CreateOrderItem"
+                    }
+                }
+            }
+        },
+        "CreateOrderAnswer": {
+            "$ref": "#/definitions/AccountDto"
+        },
+        "OrderDto": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "account_id": {
+                    "type": "string"
+                },
+                "account_email": {
+                    "type": "string"
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/OrderItemDto"
+                    }
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "CreateOrderItem": {
+            "type": "object",
+            "properties": {
+                "item_id": {
+                    "type": "string"
+                },
+                "quantity": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "OrderItemDto": {
+            "type": "object",
+            "properties": {
+                "order_id": {
+                    "type": "string"
+                },
+                "item_id": {
+                    "type": "string"
+                },
+                "quantity": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "created_at": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updated_at": {
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "Pageable": {
+            "type": "object",
+            "properties": {
+                "size": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "offset": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "sort": {
+                    "$ref": "#/definitions/Sort"
+                }
+            }
+        },
+        "SortOrder": {
+            "type": "object",
+            "properties": {
+                "property": {
+                    "type": "string"
+                },
+                "direction": {
+                    "type": "string",
+                    "enum": ["ASC", "DESC"]
+                }
+            }
+        },
+        "Sort": {
+            "type": "object",
+            "properties": {
+                "orders": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SortOrder"
+                    }
+                }
+            }
+        },
+        "OrdersPage": {
+            "type": "object",
+            "properties": {
+                "total_pages": {
+                    "type": "integer"
+                },
+                "total_elements": {
+                    "type": "integer"
+                },
+                "elements": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/OrderDto"
+                    }
+                }
+            }
+        },
+        "ItemsPage": {
+            "type": "object",
+            "properties": {
+                "total_pages": {
+                    "type": "integer"
+                },
+                "total_elements": {
+                    "type": "integer"
+                },
+                "elements": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ItemDto"
+                    }
+                }
+            }
+        }
+    }
+}

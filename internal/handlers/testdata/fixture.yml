@@ -1,0 +1,110 @@
+- model: Account
+  rows:
+    - id: 220cea28-b2b0-4051-9eb6-9a99e451af01
+      full_name: John Smith
+      email: john@smith.com
+      created_at: '{{ now }}'
+      updated_at: '{{ now }}'
+      date_of_birth: 1980-11-24
+      location: Tokyo
+      gender: 1
+    - id: 220cea28-b2b0-4051-9eb6-9a99e451af02
+      full_name: Jonh Doe
+      email: john@doe.com
+      created_at: '{{ now }}'
+      updated_at: '{{ now }}'
+      date_of_birth: 1999-04-11
+      location: New York
+      gender: 1
+    - id: 220cea28-b2b0-4051-9eb6-9a99e451af03
+      full_name: Emily Parker
+      email: em@parker.com
+      created_at: '{{ now }}'
+      updated_at: '{{ now }}'
+      date_of_birth: 2000-08-01
+      location: Los Angeles
+      gender: 2
+
+- model: Order
+  rows:
+    - id: 210cea28-b2b0-4051-9eb6-9a99e451af01
+      created_at: '{{ now }}'
+      updated_at: '{{ now }}'
+      account_id: 220cea28-b2b0-4051-9eb6-9a99e451af01
+    - id: 210cea28-b2b0-4051-9eb6-9a99e451af02
+      created_at: '{{ now }}'
+      updated_at: '{{ now }}'
+      account_id: 220cea28-b2b0-4051-9eb6-9a99e451af02
+    - id: 210cea28-b2b0-4051-9eb6-9a99e451af03
+      created_at: '{{ now }}'
+      updated_at: '{{ now }}'
+      account_id: 220cea28-b2b0-4051-9eb6-9a99e451af03
+
+- model: Item
+  rows:
+    - id: 200cea28-b2b0-4051-9eb6-9a99e451af01
+      created_at: '{{ now }}'
+      updated_at: '{{ now }}'
+      title: Cool Book 1
+      description: This is a cool book 1
+      price: 7.50
+    - id: 200cea28-b2b0-4051-9eb6-9a99e451af02
+      created_at: '{{ now }}'
+      updated_at: '{{ now }}'
+      title: Cool Book 2
+      description: This is a cool book 2
+      price: 9.99
+    - id: 200cea28-b2b0-4051-9eb6-9a99e451af03
+      created_at: '{{ now }}'
+      updated_at: '{{ now }}'
+      title: Cool Book 3
+      description: This is a cool book 3
+      price: 6.99
+    - id: 200cea28-b2b0-4051-9eb6-9a99e451af04
+      created_at: '{{ now }}'
+      updated_at: '{{ now }}'
+      title: Cool Book 4
+      description: This is a cool book 4
+      price: 10.99
+    - id: 200cea28-b2b0-4051-9eb6-9a99e451af05
+      created_at: '{{ now }}'
+      updated_at: '{{ now }}'
+      title: Cool Book 5
+      description: This is a cool book 5
+      price: 12.99
+
+- model: OrderItem
+  rows:
+    # Order 1
+    - id: 230cea28-b2b0-4051-9eb6-9a99e451af01
+      created_at: '{{ now }}'
+      updated_at: '{{ now }}'
+      order_id: 210cea28-b2b0-4051-9eb6-9a99e451af01
+      item_id: 200cea28-b2b0-4051-9eb6-9a99e451af01
+      quantity: 3
+    - id: 230cea28-b2b0-4051-9eb6-9a99e451af02
+      created_at: '{{ now }}'
+      updated_at: '{{ now }}'
+      order_id: 210cea28-b2b0-4051-9eb6-9a99e451af01
+      item_id: 200cea28-b2b0-4051-9eb6-9a99e451af02
+      quantity: 1
+    # Order 2
+    - id: 230cea28-b2b0-4051-9eb6-9a99e451af03
+      created_at: '{{ now }}'
+      updated_at: '{{ now }}'
+      order_id: 210cea28-b2b0-4051-9eb6-9a99e451af02
+      item_id: 200cea28-b2b0-4051-9eb6-9a99e451af03
+      quantity: 2
+    # Order 3
+    - id: 230cea28-b2b0-4051-9eb6-9a99e451af04
+      created_at: '{{ now }}'
+      updated_at: '{{ now }}'
+      order_id: 210cea28-b2b0-4051-9eb6-9a99e451af03
+      item_id: 200cea28-b2b0-4051-9eb6-9a99e451af04
+      quantity: 1
+    - id: 230cea28-b2b0-4051-9eb6-9a99e451af05
+      created_at: '{{ now }}'
+      updated_at: '{{ now }}'
+      order_id: 210cea28-b2b0-4051-9eb6-9a99e451af03
+      item_id: 200cea28-b2b0-4051-9eb6-9a99e451af05
+      quantity: 1

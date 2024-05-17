@@ -1,0 +1,12 @@
+with-expecter: True
+inpackage: True
+dir: "{{.InterfaceDir}}"
+mockname: "{{.InterfaceName | firstUpper}}Mock"
+outpkg: "{{.PackageName}}"
+filename: "{{.InterfaceName | snakecase}}_mock.go"
+all: True
+
+packages:
+  github.com/fmiskovic/new-amz/internal/core:
+    config:
+      recursive: True
